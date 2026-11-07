@@ -67,20 +67,20 @@ pip install pyyaml
 
 | 条款 | 严重度 | 检查内容 |
 |---|---|---|
-| 5.1.1 | critical | `name` 字段存在且合法 |
-| 5.1.2 | critical | `version` 字段是合法 semver |
-| 5.1.3 | critical | `dsh.bundle.patch` 存在 |
-| 5.1.4 | critical | patch 文件存在且是合法 YAML |
-| 5.1.5 | critical | patch 顶层是数组且含 `insert` |
-| 5.2.2 | critical | `engines.dsh` 或 peerDeps 覆盖基准版本 |
-| 5.2.3 | critical | 有入口（`main` 或 `exports`） |
-| 5.3.2 | critical | 无本地路径依赖（可分发） |
-| 5.4.1–5.4.4 | critical | 无畸形插件特征 |
-| 5.2.1 | minor | 建议声明 `engines.dsh` |
-| 5.2.4 | minor | `files` 字段合理 |
-| 5.3.3 | minor | 无过大的依赖树 |
-| **5.5.1** | major | **权限声明与行为一致 —— 只能人工** |
-| **5.5.2** | major | **描述准确 —— 只能人工** |
+| **5.1.1** | critical | 声明为 DSH 插件（`package.json` 含 `dsh.bundle.patch`）|
+| **5.1.2** | critical | patch 文件存在（可从 CDN 取到）|
+| **5.1.3** | critical | patch 文件是合法 YAML |
+| **5.1.4** | critical | patch 含 `insert` 列表 |
+| **5.1.5** | critical | 每个 entry 有 `id` 与 `name` |
+| **5.2.1** | minor | 声明 DSH 版本范围（宜）|
+| **5.2.2** | critical | 版本范围包含基准版本 |
+| **5.2.3** | critical | 有 `main` 或 `exports` 入口 |
+| **5.3.1** | major | `files` 含运行所需文件 |
+| **5.3.2** | critical | 不依赖本地绝对路径 |
+| **5.4.1–5.4.4** | critical | 能安装 / 列装 / 挂载 / 启动（需沙箱，本仓库只标 skip）|
+| **5.5.1** | major | 工具的 `description` 说清使用场景 —— **只能人工** |
+| **5.5.2** | major | 声明的权限与行为一致 —— **只能人工** |
+| **5.5.3** | major | 不出现红线权限组合 |
 
 ---
 
