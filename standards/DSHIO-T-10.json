@@ -94,7 +94,10 @@
       "check": {
         "type": "yaml_entries_have_fields",
         "field": "$.dsh.bundle.patch",
-        "required": ["id", "name"]
+        "required": [
+          "id",
+          "name"
+        ]
       },
       "fix": "每个 entry 补上 id 和 name。id 在配置树内唯一，name 是模块名"
     },
@@ -223,7 +226,7 @@
       "stage": "T4"
     },
     {
-      "id": "6.1.1",
+      "id": "5.5.1",
       "title": "工具的 description 必须说清使用场景",
       "text": {
         "zh-Hans": "每个工具的 description 必须让不知道该插件的人判断出「什么情况下该调用它」。只写功能名称不合格。",
@@ -237,7 +240,7 @@
       }
     },
     {
-      "id": "6.1.2",
+      "id": "5.5.2",
       "title": "声明的权限必须与行为一致",
       "text": {
         "zh-Hans": "插件声明的权限集合必须覆盖它实际使用的能力，且不得声明未使用的能力。",
@@ -251,7 +254,7 @@
       }
     },
     {
-      "id": "6.2.1",
+      "id": "5.5.3",
       "title": "不得出现红线权限组合",
       "text": {
         "zh-Hans": "同时声明 network 与（shell 或 fs-write）的插件构成数据外泄路径，判定为高风险，必须有明确理由。",
