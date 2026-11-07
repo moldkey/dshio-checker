@@ -10,6 +10,7 @@
   python3 checker.py @lianglee/dsh-foo --json
 """
 import json
+import os
 import re
 import sys
 
@@ -20,7 +21,11 @@ except ImportError:
 import urllib.parse
 import urllib.request
 
-CLAUSES_PATH = "/root/dshio/standards/DSHIO-T-10.json"
+# 条款定义文件：优先用同目录下的 standards/，找不到再退回服务端路径
+_HERE = os.path.dirname(os.path.abspath(__file__))
+CLAUSES_PATH = os.path.join(_HERE, "standards", "DSHIO-T-10.json")
+if not os.path.exists(CLAUSES_PATH):
+    CLAUSES_PATH = "/root/dshio/standards/DSHIO-T-10.json"
 BASELINE_DSH = "0.2.2-rc.1"
 TIMEOUT = 20
 UA = "dshio-checker/1.0 (+https://dshio.org)"
@@ -411,7 +416,7 @@ def run_checks(pkg, verbose=False):
     else:
         add("5.3.2", "pass", "依赖声明未引用 file: 或绝对路径")
 
-    # 6.2.1 红线
+    # 5.5.3 红线
     caps = set()
     capsrc = mf.get("dsh", {})
     for k in ("capabilities", "permissions"):
@@ -420,11 +425,11 @@ def run_checks(pkg, verbose=False):
             caps |= set(v)
     caps |= set(mf.get("permissions") or [])
     if ("network" in caps) and ({"shell", "fs-write"} & caps):
-        add("6.2.1", "fail", "红线组合: %s" % ", ".join(sorted(caps)))
+        add("5.5.3", "fail", "红线组合: %s" % ", ".join(sorted(caps)))
     elif caps:
-        add("6.2.1", "pass", "无红线组合（%s）" % ", ".join(sorted(caps)))
+        add("5.5.3", "pass", "无红线组合（%s）" % ", ".join(sorted(caps)))
     else:
-        add("6.2.1", "skip", "manifest 未声明 capabilities")
+        add("5.5.3", "skip", "manifest 未声明 capabilities")
 
     # manual 条款只登记
     for c in clauses:
